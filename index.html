@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Банк Finarch</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f6f9;
+            color: #2d2d2d;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 40px 20px 30px;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 22px;
+            margin: 10px 0 5px;
+        }
+
+        header p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .header-img {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        header img {
+            width: 60px;
+            margin-bottom: 0;
+        }
+
+        nav {
+            background-color: #005f73;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            transition: background 0.3s ease;
+            border-radius: 6px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        #about {
+            background-image: url('logo.png');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            position: relative;
+            color: white;
+            display: flex;
+            align-items: flex-start;
+            padding-top: 0;
+        }
+
+        .about-left {
+            max-width: 360px;
+            padding: 0 15px 20px;
+        }
+
+        .about-overlay {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 40px 10px 20px;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 30%, rgba(0, 0, 0, 0) 60%);
+        }
+
+        .about-left h2 {
+            font-size: 28px; /* Было 36px */
+            margin-bottom: 16px;
+            margin-block: 0;
+            padding: 0;
+        }
+
+        .about-left h3 {
+            font-size: 18px; /* Было 22px */
+            margin-top: 8px;
+            margin-bottom: 6px;
+        }
+
+        .about-left p {
+            font-size: 14px; /* Было 16px */
+            margin-bottom: 10px;
+        }
+
+        .about-left ul li {
+            font-size: 14px;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: auto;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-subtitle {
+            font-size: 28px;
+            color: #ffffff;
+            margin: 40px 0 20px;
+            position: relative;
+            display: inline-block; /* чтобы псевдоэлемент ограничивался шириной текста */
+            background: #f4f6f9; /* фон страницы, чтобы "вырезать" линию под текстом */
+            padding: 0 10px;
+            z-index: 1;
+            text-indent: 50px;
+        }
+
+        .product-subtitle::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 5000px;
+            height: 50px;
+            background-color: #00707a;
+            border-radius: 3px;
+            z-index: -1;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .card img {
+            width: 55px;
+            margin-bottom: 15px;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 16px;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+        }
+
+        .carousel img {
+            height: 160px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        #academy {
+            background-color: #d9f0f2;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        #academy h2 {
+            color: #00707a;
+        }
+
+        .academy-image {
+            max-width: 100%;
+            width: 600px;
+            height: auto;
+            border-radius: 16px;
+            margin-top: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .academy-image:hover {
+            transform: scale(1.03);
+        }
+
+        #projects {
+            padding: 60px 20px;
+            background-color: #e7f3f3; /* светлый фон для выделения раздела */
+            color: #333;
+            text-align: center;
+        }
+
+        #projects h2 {
+            font-size: 32px;
+            color: #00707a;
+            margin-bottom: 20px;
+        }
+
+        #projects p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .slider-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 1s ease;
+            width: 100%;
+        }
+
+        .slider img {
+            min-width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            gap: 10px;
+        }
+
+        .slider-dots span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-dots span.active {
+            background-color: #00707a;
+        }
+
+        footer {
+            background-color: #002c5f;
+            color: white;
+            text-align: center;
+            padding: 20px 10px;
+            font-size: 10px;
+        }
+
+        .footer-container {
+            text-align: left;
+        }
+
+        footer h2 {
+            color: #ffffff;
+            font-size: 15px;
+        }
+
+        @keyframes fadeIn {
+            0% {opacity: 0; transform: translateY(20px);}
+            100% {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-img">
+        <img src="bank.png" alt="Логотип Finarch">
+    </div>
+    <h1>АО "Finarch"</h1>
+    <p>Финансовый архитектор вашего будущего</p>
+</header>
+
+<nav>
+    <a href="#about">О банке</a>
+    <a href="#dep">Депозиты</a>
+    <a href="#zay">Займы</a>
+    <a href="#academy">BankArch Academy</a>
+    <a href="#projects">Социальные проекты</a>
+    <a href="#contacts">Контакты</a>
+</nav>
+
+<section id="about">
+    <div class="about-overlay">
+        <div class="about-left">
+            <h2>О БАНКЕ</h2>
+            <p><strong>Finarch</strong> — синтез финансовых технологий и архитектурного подхода. Мы формируем экосистему удобных, безопасных и современных решений для клиентов.</p>
+
+            <h3>Миссия</h3>
+            <p>Создавать устойчивые решения для будущего клиентов.</p>
+
+            <h3>Принципы</h3>
+            <ul>
+                <li>Надежность</li>
+                <li>Гибкость</li>
+                <li>Развитие</li>
+                <li>Ответственность</li>
+                <li>Инновации</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div class="products-group">
+    <h3 class="product-subtitle">Депозиты</h3>
+    <div class="products" id="dep">
+            <div class="card">
+            <img src="klad.png" alt="Вклад">
+            <h3>Инвестиционный депозит</h3>
+            <p>Ставка до 20% годовых. Валюта: KZT, USD, EUR.</p>
+        </div>
+        <div class="card">
+            <img src="lay.png" alt="Копилка">
+            <h3>Денежный лайнер</h3>
+            <p>Автосбережения при каждой покупке. До 18,4% годовых.</p>
+        </div>
+        <div class="card">
+            <img src="kid.png" alt="Дети">
+            <h3>Детский бизнес-аккаунт</h3>
+            <p>Финансовое обучение детей. 18% годовых.</p>
+        </div>
+        <div class="card">
+            <img src="biz.png" alt="бизнес">
+            <h3>Депозит «Бизнес-Рост»</h3>
+            <p>Вклад на 12 месяцев с 15,6% годовых, минимум 1 000 000 KZT и пополнением от 500 000 KZT.</p>
+        </div>
+        <div class="card">
+            <img src="cash.png" alt="плюс">
+            <h3>Депозит «Капитал-Плюс»</h3>
+            <p>Вклад на 24 месяца с 15% годовых, минимум 5 000 000 KZT, без пополнения и частичного снятия.</p>
+        </div>
+    </div>
+
+    <h3 class="product-subtitle">Займы</h3>
+    <div class="products">
+        <div class="card" id="zay">
+            <img src="proc.png" alt="Кредит">
+            <h3>Заём с кэшбеком</h3>
+            <p>Кэшбек на проценты при оплате вовремя.</p>
+        </div>
+        <div class="card">
+            <img src="home.png" alt="Ипотека">
+            <h3>Гибкая ипотека</h3>
+            <p>Изменение платежей по сезонам. До 20 лет.</p>
+        </div>
+        <div class="card">
+            <img src="rem.png" alt="Ремонт">
+            <h3>Заём на ремонт</h3>
+            <p>Финансирование ремонта домов и квартир.</p>
+        </div>
+        <div class="card">
+            <img src="kred.png" alt="Тұрақты">
+            <h3>Заём "Тұрақты"</h3>
+            <p>Стабильный рост бизнеса. До 15 млн тг.</p>
+        </div>
+        <div class="card">
+            <img src="walk.png" alt="Стартап">
+            <h3>Кредит "Инновационный Путь"</h3>
+            <p>Поддержка стартапов и новых проектов.</p>
+        </div>
+        <div class="card">
+            <img src="arch.png" alt="Архитектура">
+            <h3>Архитектурный рост+</h3>
+            <p>Развитие городской архитектуры.</p>
+        </div>
+    </div>
+</div>
+
+<section id="academy">
+    <h2>BankArch Academy</h2>
+    <p>Образовательная e-learning-платформа для архитекторов, застройщиков и сотрудников. Модули: Финансы, Андеррайтинг, ESG-кредитование. Получение баллов, сертификатов и бонусов для клиентов.</p>
+    <img class="academy-image" src="https://avatars.mds.yandex.net/i?id=f8144401ba7fb9cb31662384a4513732_l-5233169-images-thumbs&n=13" alt="BankArch Academy">
+</section>
+
+<section id="projects">
+    <h2>Социальные проекты</h2>
+    <p>Finarch активно участвует в проектах по благоустройству городской среды и ремонту жилья...</p>
+
+    <div class="slider-wrapper">
+        <div class="slider" id="slider">
+            <img src="https://avatars.mds.yandex.net/get-altay/5255911/2a00000189e49878dd46a06a5d9a56c36199/XXXL" alt="Парк">
+            <img src="https://avatars.dzeninfra.ru/get-ynews/271828/f3451b3229b94c450d89c238f9b86cff/992x496" alt="Благоустройство">
+            <img src="https://tengrinews.kz/userdata/u386/2021-04/resize/3441882bba8a8d5d20cd453b0235b96f.png" alt="Фонарь">
+            <img src="https://avatars.mds.yandex.net/i?id=82301d21a511a5d013b6a0f3113b5d54_l-5233608-images-thumbs&n=13" alt="Скамейка">
+            <img src="https://avatars.mds.yandex.net/i?id=09b8c23b83368cc268901d2c56a40489_l-9151370-images-thumbs&n=13" alt="Городской сквер">
+        </div>
+    </div>
+    <div class="slider-dots" id="slider-dots"></div>
+</section>
+
+<footer>
+    <div class="footer-container">
+        <section id="contacts">
+            <h2>Контакты</h2>
+            <p>Email: info@finarch.kz</p>
+            <p>Телефон: +7 (727) 123-45-67</p>
+            <p>Адрес: г. Алматы, пр. Аль-Фараби, 77/8</p>
+        </section>
+        </div>
+    &copy; 2025 Finarch Bank. Все права защищены.
+</footer>
+
+<script>
+    const slider = document.getElementById('slider');
+    const slides = slider.querySelectorAll('img');
+    const dotsContainer = document.getElementById('slider-dots');
+    let index = 0;
+    let interval;
+
+    // Создаем точки
+    slides.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.addEventListener('click', () => {
+            index = i;
+            updateSlider();
+            resetInterval();
+        });
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll('span');
+
+    function updateSlider() {
+        slider.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[index].classList.add('active');
+    }
+
+    function resetInterval() {
+        clearInterval(interval);
+        interval = setInterval(() => {
+            index = (index + 1) % slides.length;
+            updateSlider();
+        }, 30000);
+    }
+
+    // Инициализация
+    updateSlider();
+    resetInterval();
+</script>
+
+</body>
+</html>
